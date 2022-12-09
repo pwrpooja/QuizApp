@@ -20,6 +20,7 @@ export class QuestionComponent implements OnInit {
   interval$: any;
   progress :string="0";
   isQuizCompleted : boolean = false;
+  showQuizNotPresentMsg: boolean = false;
   
   constructor(private questionService: QuestionService) { }
 
@@ -30,9 +31,16 @@ export class QuestionComponent implements OnInit {
     this.startCounter();
   }
   getAllQuestions() {
-    this.questionService.getQuestionJson()
+    this.questionService.getQuestionJson(this.emailid)
       .subscribe(res => {
-        this.questionList = res.questions;
+        console.log(res);
+        if(res!=null) {
+          this.showQuizNotPresentMsg = false;
+          this.name=res.userName;
+          this.questionList = res.questions;
+        } else {
+          this.showQuizNotPresentMsg = true;
+        }
       })
   }
   nextQuestion() {

@@ -1,7 +1,12 @@
 
 
 <div class="container mt-5">
-    <div class="card">
+    <div class="card" *ngIf="showQuizNotPresentMsg">
+        <div class="d-flex justify-content-between p-3">
+            {{emailid}} is not allocated to any Quiz Please check with Admin
+        </div>
+    </div>
+ <div class="card" *ngIf="!showQuizNotPresentMsg">
         <div class="d-flex justify-content-between p-3">
             <div class="image">
                 <img src="https://img.icons8.com/color/96/000000/angularjs.png" width="90" alt="logo">
@@ -11,8 +16,7 @@
                 <span style="font-style: italic;">Welcome {{name}} {{emailid}}</span>
             </div>
         </div>
-
-        <ng-container *ngIf="!isQuizCompleted">
+<ng-container *ngIf="!isQuizCompleted">
             <div class="d-flex justify-content-around py-3">
                 <div class="score">
                     <h5>{{points}} Points</h5>
@@ -36,7 +40,8 @@
                 <ol *ngFor="let option of questionList[currentQuestion]?.options">
                     <li (click)="answer(currentQuestion+1,option)">
                         <div appChangeBg [isCorrect]="option.correct" class="card">
-                            {{option.text}}
+            
+                            {{option.answerText}}
                         </div>
                     </li>
 

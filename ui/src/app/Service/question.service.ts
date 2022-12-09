@@ -6,7 +6,7 @@ import{HttpClient}from '@angular/common/http'
 export class QuestionService {
 
   constructor(private http:HttpClient) { }
-  getQuestionJson(){
-    return this.http.get<any>("assets/questions.json");
+  getQuestionJson(email: String){
+    return this.http.get<any>("http://localhost:8080/api/quiz?email="+email);
   }
 }
